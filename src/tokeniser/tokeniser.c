@@ -393,6 +393,24 @@ hubbub_error hubbub_tokeniser_setopt(hubbub_tokeniser *tokeniser,
 		} else {
 			if (tokeniser->paused == true) {
 				tokeniser->paused = false;
+				/* When unpausing, if we have had something
+				 * akin to document.write() happen while
+				 * we were paused, then the insert_buf will
+				 * have some content.
+				 * In this case, we need to prepend it to
+				 * the input buffer before we resume parsing,
+				 * discarding the insert_buf as we go.
+				 */
+				if (tokeniser->insert_buf->length > 0) {
+					parserutils_inputstream_insert(
+						tokeniser->input,
+						tokeniser->insert_buf->data,
+						tokeniser->insert_buf->length);
+					parserutils_buffer_discard(
+						tokeniser->insert_buf, 0,
+						tokeniser->insert_buf->length);
+				}
+
 				err = hubbub_tokeniser_run(tokeniser);
 			}
 		}
