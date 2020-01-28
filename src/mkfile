@@ -1,0 +1,58 @@
+</$objtype/mkfile
+
+CC=pcc
+OBJ=\
+	charset/detect.$O \
+	parser.$O \
+	tokeniser/entities.$O \
+	tokeniser/tokeniser.$O \
+	treebuilder/after_after_body.$O \
+	treebuilder/after_after_frameset.$O \
+	treebuilder/after_body.$O \
+	treebuilder/after_frameset.$O \
+	treebuilder/after_head.$O \
+	treebuilder/before_head.$O \
+	treebuilder/before_html.$O \
+	treebuilder/generic_rcdata.$O \
+	treebuilder/in_body.$O \
+	treebuilder/in_caption.$O \
+	treebuilder/in_cell.$O \
+	treebuilder/in_column_group.$O \
+	treebuilder/in_foreign_content.$O \
+	treebuilder/in_frameset.$O \
+	treebuilder/in_head.$O \
+	treebuilder/in_head_noscript.$O \
+	treebuilder/in_row.$O \
+	treebuilder/in_select.$O \
+	treebuilder/in_select_in_table.$O \
+	treebuilder/in_table.$O \
+	treebuilder/in_table_body.$O \
+	treebuilder/initial.$O \
+	treebuilder/treebuilder.$O \
+	utils/errors.$O \
+	utils/string.$O
+
+#HFILES=../include/parserutils/parserutils.h
+
+HFILES=\
+	../include/hubbub/errors.h \
+	../include/hubbub/functypes.h \
+	../include/hubbub/hubbub.h \
+	../include/hubbub/parser.h \
+	../include/hubbub/tree.h \
+	../include/hubbub/types.h \
+
+
+CFLAGS=-I ../include -I . -I ../../libparserutils-0.2.4/include -I ../../posix/include -D_BSD_EXTENSION -D_SUSV2_SOURCE
+
+
+all:V:	libhubbub.$O.a
+
+libhubbub.$O.a: $OBJ $HFILES
+	ar rv libhubbub.$O.a $OBJ
+
+%.$O:	%.c $HFILES
+	$CC $CFLAGS -c -o $target $stem.c
+
+clean:V:
+	rm -f $OBJ libhubbub.$O.a

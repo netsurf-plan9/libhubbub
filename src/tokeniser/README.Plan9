@@ -1,0 +1,3 @@
+The file entities.inc is generated from the Makefile with
+a perl script. It does not seem that it has changed much
+lately, so I include the generated file from a Linux build.
