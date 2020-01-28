@@ -43,7 +43,7 @@ HFILES=\
 	../include/hubbub/types.h \
 
 
-CFLAGS=-I ../include -I . -I ../../libparserutils-0.2.4/include -I ../../posix/include -D_BSD_EXTENSION -D_SUSV2_SOURCE
+CFLAGS=-I ../include -I . -I ../../libparserutils/include -I ../../posix/include -D_BSD_EXTENSION -D_SUSV2_SOURCE
 
 
 all:V:	libhubbub.$O.a
