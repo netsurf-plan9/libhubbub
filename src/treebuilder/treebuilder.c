@@ -1391,15 +1391,21 @@ hubbub_error formatting_list_remove(hubbub_treebuilder *treebuilder,
 	*node = entry->details.node;
 	*stack_index = entry->stack_index;
 
-	if (entry->prev == NULL)
+	if (entry->prev == NULL) {
+		assert(treebuilder->context.formatting_list == entry);
 		treebuilder->context.formatting_list = entry->next;
-	else
+	} else {
+		assert(treebuilder->context.formatting_list != entry);
 		entry->prev->next = entry->next;
+	}
 
-	if (entry->next == NULL)
+	if (entry->next == NULL) {
+		assert(treebuilder->context.formatting_list_end == entry);
 		treebuilder->context.formatting_list_end = entry->prev;
-	else
+	} else {
+		assert(treebuilder->context.formatting_list_end != entry);
 		entry->next->prev = entry->prev;
+	}
 
 	free(entry);
 
