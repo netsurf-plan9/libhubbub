@@ -1,6 +1,6 @@
 </$objtype/mkfile
 
-CC=pcc
+LIB=libhubbub.$O.a
 OBJ=\
 	charset/detect.$O \
 	parser.$O \
@@ -34,6 +34,8 @@ OBJ=\
 
 #HFILES=../include/parserutils/parserutils.h
 
+<../../nsport.mk
+
 HFILES=\
 	../include/hubbub/errors.h \
 	../include/hubbub/functypes.h \
@@ -42,17 +44,10 @@ HFILES=\
 	../include/hubbub/tree.h \
 	../include/hubbub/types.h \
 
+CFLAGS=$CFLAGS -I../../libparserutils/include
 
-CFLAGS=-I ../include -I . -I ../../libparserutils/include -I ../../posix/include -D_BSD_EXTENSION -D_SUSV2_SOURCE
+<../../nsportlib.mk
 
 
-all:V:	libhubbub.$O.a
-
-libhubbub.$O.a: $OBJ $HFILES
-	ar rv libhubbub.$O.a $OBJ
-
-%.$O:	%.c $HFILES
-	$CC $CFLAGS -c -o $target $stem.c
-
-clean:V:
-	rm -f $OBJ libhubbub.$O.a
+tokeniser/entities.inc:
+	cp ../../genfiles/libhubbub/entities.inc tokeniser/entities.inc
