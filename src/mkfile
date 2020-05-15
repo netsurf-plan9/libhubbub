@@ -44,7 +44,7 @@ HFILES=\
 	../include/hubbub/tree.h \
 	../include/hubbub/types.h \
 
-CFLAGS=$CFLAGS -I../../libparserutils/include
+CFLAGS=$CFLAGS -I../../libparserutils/include -DNDEBUG
 
 <../../nsportlib.mk
 
