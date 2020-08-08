@@ -267,9 +267,10 @@ hubbub_error process_start_tag(hubbub_treebuilder *treebuilder,
 			type == DATAGRID || type == DETAILS ||
 			type == DIALOG || type == DIR ||
 			type == DIV || type == DL || type == FIELDSET ||
-			type == FIGURE || type == FOOTER ||
-			type == HEADER || type == MENU || type == NAV ||
-			type == OL || type == P || type == SECTION ||
+			type == FIGCAPTION || type == FIGURE ||
+			type == FOOTER || type == HEADER || type == MAIN ||
+			type == MENU || type == NAV || type == OL ||
+			type == P || type == SECTION || type == SUMMARY ||
 			type == UL) {
 		err = process_container_in_body(treebuilder, token);
 	} else if (type == H1 || type == H2 || type == H3 ||
@@ -430,12 +431,14 @@ hubbub_error process_end_tag(hubbub_treebuilder *treebuilder,
 		 * that wasn't ignored, reprocess this token */
 		err = process_0body_in_body(treebuilder);
 	} else if (type == ADDRESS || type == ARTICLE || type == ASIDE ||
-			type == BLOCKQUOTE || type == CENTER || type == DIR || 
-			type == DATAGRID || type == DIV || type == DL || 
-			type == FIELDSET || type == FOOTER || type == HEADER ||
-			type == LISTING || type == MENU || type == NAV ||
-			type == OL || type == PRE || type == SECTION ||
-			type == UL) {
+			type == BLOCKQUOTE || type == CENTER ||
+			type == DETAILS || type == DIALOG || type == DIR ||
+			type == DATAGRID || type == DIV || type == DL ||
+			type == FIELDSET || type == FIGCAPTION ||
+			type == FIGURE || type == FOOTER || type == HEADER ||
+			type == LISTING || type == MAIN|| type == MENU ||
+			type == NAV || type == OL || type == PRE ||
+			type == SECTION || type == SUMMARY || type == UL) {
 		err = process_0container_in_body(treebuilder, type);
 	} else if (type == FORM) {
 		err = process_0form_in_body(treebuilder);
